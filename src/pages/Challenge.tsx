@@ -20,6 +20,7 @@ const Challenge = () => {
   const [attempts, setAttempts] = useState(0);
   const [isWon, setIsWon] = useState(false);
   const [securityRating, setSecurityRating] = useState<{ rating: string, analysis: string } | null>(null);
+  const [showWinModal, setShowWinModal] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -80,6 +81,7 @@ const Challenge = () => {
     setHintsUsed(0);
     setIsWon(false);
     setSecurityRating(null);
+    setShowWinModal(false);
   };
 
   return (
@@ -139,27 +141,41 @@ const Challenge = () => {
       {/* Inputs and Controls */}
       <div className="flex gap-2 sm:gap-4 relative z-20">
         <div className="flex-1 relative group">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                handleSend();
-              }
-            }}
-            disabled={isLoading || isWon}
-            placeholder={isWon ? "Challenge Completed." : "Inject prompt..."}
-            className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl pl-4 sm:pl-6 pr-12 sm:pr-16 py-3 sm:py-5 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 resize-none shadow-inner backdrop-blur-md disabled:opacity-50 transition-all font-sans text-sm sm:text-base"
-            rows={1}
-          />
-          <button
-            onClick={handleSend}
-            disabled={!input.trim() || isLoading || isWon}
-            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-white/10 text-white rounded-xl sm:rounded-2xl hover:bg-accent hover:text-white transition-all disabled:opacity-30 hover:scale-105 active:scale-95"
-          >
-            <Send size={18} />
-          </button>
+          {isWon ? (
+            <button
+              onClick={() => {
+                if (securityRating) setShowWinModal(true);
+              }}
+              disabled={!securityRating}
+              className="w-full bg-highlight/20 border border-highlight/50 text-highlight font-bold rounded-2xl sm:rounded-3xl py-3 sm:py-5 hover:bg-highlight hover:text-black transition-all disabled:opacity-50 shadow-[0_0_15px_rgba(0,255,255,0.2)] disabled:shadow-none"
+            >
+              {securityRating ? "View Security Report" : "Generating Report..."}
+            </button>
+          ) : (
+            <>
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }}
+                disabled={isLoading}
+                placeholder="Inject prompt..."
+                className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl pl-4 sm:pl-6 pr-12 sm:pr-16 py-3 sm:py-5 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 resize-none shadow-inner backdrop-blur-md disabled:opacity-50 transition-all font-sans text-sm sm:text-base"
+                rows={1}
+              />
+              <button
+                onClick={handleSend}
+                disabled={!input.trim() || isLoading}
+                className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-white/10 text-white rounded-xl sm:rounded-2xl hover:bg-accent hover:text-white transition-all disabled:opacity-30 hover:scale-105 active:scale-95"
+              >
+                <Send size={18} />
+              </button>
+            </>
+          )}
         </div>
         
         <button
@@ -194,7 +210,7 @@ const Challenge = () => {
 
       {/* Win Modal Overlay */}
       <AnimatePresence>
-        {isWon && securityRating && (
+        {showWinModal && securityRating && (
           <motion.div 
             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
             animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
