@@ -137,7 +137,7 @@ const Challenge = () => {
       </div>
 
       {/* Inputs and Controls */}
-      <div className="flex space-x-4 relative z-20">
+      <div className="flex gap-2 sm:gap-4 relative z-20">
         <div className="flex-1 relative group">
           <textarea
             value={input}
@@ -150,13 +150,13 @@ const Challenge = () => {
             }}
             disabled={isLoading || isWon}
             placeholder={isWon ? "Challenge Completed." : "Inject prompt..."}
-            className="w-full bg-black/60 backdrop-blur-xl border border-white/10 rounded-3xl pl-6 pr-16 py-5 text-white focus:outline-none focus:ring-2 focus:ring-accent/50 resize-none shadow-2xl disabled:opacity-50 transition-all font-sans"
+            className="w-full bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl pl-4 sm:pl-6 pr-12 sm:pr-16 py-3 sm:py-5 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 resize-none shadow-inner backdrop-blur-md disabled:opacity-50 transition-all font-sans text-sm sm:text-base"
             rows={1}
           />
           <button
             onClick={handleSend}
             disabled={!input.trim() || isLoading || isWon}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-3 bg-white/10 text-white rounded-2xl hover:bg-accent hover:text-white transition-all disabled:opacity-30 hover:scale-105 active:scale-95"
+            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-white/10 text-white rounded-xl sm:rounded-2xl hover:bg-accent hover:text-white transition-all disabled:opacity-30 hover:scale-105 active:scale-95"
           >
             <Send size={18} />
           </button>
@@ -165,19 +165,19 @@ const Challenge = () => {
         <button
           onClick={() => setHintsUsed(h => Math.min(h + 1, level.hints.length))}
           disabled={hintsUsed >= level.hints.length || isWon}
-          className="px-5 bg-black/60 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 transition-all flex flex-col items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed shadow-2xl hover:border-white/20"
+          className="px-3 sm:px-5 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl sm:rounded-3xl hover:bg-white/10 transition-all flex flex-col items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed shadow-inner hover:border-white/20"
           title="Use Hint"
         >
-          <Lightbulb size={22} className={hintsUsed > 0 ? 'text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]' : 'text-white/50'} />
-          <span className="text-[10px] mt-1 font-mono text-white/50">{hintsUsed}/{level.hints.length}</span>
+          <Lightbulb size={20} className={hintsUsed > 0 ? 'text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]' : 'text-white/50'} />
+          <span className="text-[9px] sm:text-[10px] mt-1 font-mono text-white/50">{hintsUsed}/{level.hints.length}</span>
         </button>
 
         <button
           onClick={handleRestart}
-          className="px-6 bg-black/60 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 text-white/70"
+          className="px-3 sm:px-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl sm:rounded-3xl hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all flex items-center justify-center shadow-inner hover:scale-105 active:scale-95 text-white/70"
           title="Restart Level"
         >
-          <RefreshCw size={22} />
+          <RefreshCw size={20} />
         </button>
       </div>
 

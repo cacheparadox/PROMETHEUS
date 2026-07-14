@@ -8,13 +8,6 @@ interface Props {
   onClose: () => void;
 }
 
-const models = [
-  'openai/gpt-4o-mini',
-  'openai/gpt-4o',
-  'anthropic/claude-3-haiku',
-  'anthropic/claude-3.5-sonnet',
-  'meta-llama/llama-3-70b-instruct'
-];
 
 const SettingsModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const { apiKey, setApiKey, selectedModel, setSelectedModel, validatorModel, setValidatorModel } = useAppStore();
@@ -56,7 +49,7 @@ const SettingsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 placeholder="sk-or-v1-..."
-                className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all font-mono text-[15px] shadow-inner backdrop-blur-md"
               />
               <p className="mt-2 text-xs text-white/40">
                 Stored locally in your browser. Never sent to our servers.
@@ -67,33 +60,33 @@ const SettingsModal: React.FC<Props> = ({ isOpen, onClose }) => {
               <label className="block text-sm font-medium text-white/70 mb-2">
                 Challenge Model
               </label>
-              <select 
+              <input 
+                type="text"
                 value={selectedModel}
                 onChange={(e) => setSelectedModel(e.target.value)}
-                className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-accent appearance-none cursor-pointer"
-              >
-                {models.map(m => <option key={m} value={m}>{m}</option>)}
-              </select>
+                placeholder="e.g. openai/gpt-4o-mini"
+                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all font-mono text-[15px] shadow-inner backdrop-blur-md"
+              />
             </div>
             
             <div>
               <label className="block text-sm font-medium text-white/70 mb-2">
                 Validator Model (For AI graded levels)
               </label>
-              <select 
+              <input 
+                type="text"
                 value={validatorModel}
                 onChange={(e) => setValidatorModel(e.target.value)}
-                className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-secondary appearance-none cursor-pointer"
-              >
-                {models.map(m => <option key={m} value={m}>{m}</option>)}
-              </select>
+                placeholder="e.g. openai/gpt-4o"
+                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all font-mono text-[15px] shadow-inner backdrop-blur-md"
+              />
             </div>
           </div>
           
-          <div className="mt-8 pt-6 border-t border-white/10 flex justify-end">
+          <div className="mt-8 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-end">
             <button 
               onClick={onClose}
-              className="px-6 py-2 bg-white text-black font-bold rounded-full hover:bg-white/90 transition-colors"
+              className="w-full sm:w-auto px-8 py-4 sm:py-3 bg-white text-black font-bold uppercase tracking-widest text-sm rounded-full shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all"
             >
               Save & Close
             </button>
