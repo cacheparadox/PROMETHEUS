@@ -35,7 +35,7 @@ const SettingsModal: React.FC<Props> = ({ isOpen, onClose }) => {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-lg glass-panel rounded-2xl p-8 shadow-2xl"
+          className="relative w-full max-w-lg glass-panel rounded-2xl p-6 md:p-8 shadow-2xl mx-4"
         >
           <button 
             onClick={onClose}

@@ -13,12 +13,12 @@ const LandingPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="text-center max-w-4xl"
+        className="text-center max-w-4xl px-4"
       >
-        <h1 className="text-7xl md:text-9xl font-black tracking-tighter mb-6 text-glow bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-cyan-200">
+        <h1 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter mb-4 sm:mb-6 text-glow bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-cyan-200">
           PROMETHEUS
         </h1>
-        <h2 className="text-xl md:text-2xl font-light text-white/60 mb-12 tracking-wide">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-light text-white/60 mb-8 sm:mb-12 tracking-wide">
           The AI doesn't want you to know what's inside.
         </h2>
         

@@ -201,9 +201,9 @@ const Challenge = () => {
             <motion.div 
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
-              className="max-w-lg w-full glass-panel border-highlight/50 p-8 rounded-3xl text-center shadow-[0_0_100px_rgba(0,255,255,0.2)]"
+              className="max-w-lg w-full glass-panel border-highlight/50 p-6 md:p-8 rounded-3xl text-center shadow-[0_0_100px_rgba(0,255,255,0.2)] mx-4"
             >
-              <h2 className="text-4xl font-black mb-2 text-glow text-highlight">ACCESS GRANTED</h2>
+              <h2 className="text-3xl md:text-4xl font-black mb-2 text-glow text-highlight">ACCESS GRANTED</h2>
               <p className="text-white/60 mb-8">System bypassed in {attempts} attempts.</p>
               
               <div className="bg-black/50 rounded-xl p-6 text-left border border-white/10 mb-8">
