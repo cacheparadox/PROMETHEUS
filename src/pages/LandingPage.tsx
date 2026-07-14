@@ -15,18 +15,18 @@ const LandingPage = () => {
         transition={{ duration: 1, ease: "easeOut" }}
         className="text-center max-w-4xl px-4"
       >
-        <h1 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter mb-4 sm:mb-6 text-glow bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-cyan-200">
+        <h1 className="text-5xl sm:text-7xl md:text-9xl font-display font-bold tracking-tight mb-4 sm:mb-6 text-glow bg-clip-text text-transparent bg-gradient-to-br from-white via-blue-200 to-cyan-300">
           PROMETHEUS
         </h1>
-        <h2 className="text-lg sm:text-xl md:text-2xl font-light text-white/60 mb-8 sm:mb-12 tracking-wide">
-          The AI doesn't want you to know what's inside.
+        <h2 className="text-xs sm:text-sm md:text-base font-sans font-medium uppercase tracking-[0.3em] text-white/50 mb-10 sm:mb-14">
+          The AI doesn't want you to know what's inside
         </h2>
         
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => navigate(apiKey ? '/levels' : '?settings=true')}
-          className="px-12 py-5 text-xl font-bold bg-white text-black rounded-full shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)] transition-shadow"
+          className="px-10 py-4 text-sm uppercase tracking-widest font-bold bg-white text-black rounded-full shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.3)] transition-shadow"
         >
           Initiate Sequence
         </motion.button>

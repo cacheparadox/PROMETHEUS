@@ -13,10 +13,10 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+      <div className="min-h-screen bg-black text-foreground relative overflow-hidden mesh-bg">
         {/* Background Effects */}
-        <div className="bg-noise"></div>
-        <div className="absolute inset-0 bg-aurora bg-[length:200%_200%] animate-aurora-move opacity-20 pointer-events-none"></div>
+        <div className="bg-noise mix-blend-overlay opacity-50"></div>
+        <div className="absolute inset-0 bg-aurora bg-[length:300%_300%] animate-aurora-move opacity-30 pointer-events-none mix-blend-screen"></div>
         
         {/* Global Settings Button */}
         <button 

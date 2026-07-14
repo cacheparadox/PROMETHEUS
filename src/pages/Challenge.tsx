@@ -87,45 +87,47 @@ const Challenge = () => {
       {isWon && <Confetti recycle={false} numberOfPieces={500} colors={['#00ffff', '#0055ff', '#a020f0', '#ffffff']} />}
 
       {/* Header */}
-      <div className="flex items-center justify-between glass-panel p-4 rounded-t-2xl border-b-0">
-        <div className="flex items-center space-x-4">
-          <button onClick={() => navigate('/levels')} className="p-2 hover:bg-white/10 rounded-full transition-colors">
-            <ChevronLeft />
+      <div className="flex items-center justify-between glass-panel p-6 rounded-t-3xl border-b-0 relative z-10 shadow-2xl">
+        <div className="flex items-center space-x-6">
+          <button onClick={() => navigate('/levels')} className="p-3 bg-white/5 hover:bg-white/10 rounded-full transition-colors border border-white/10 group">
+            <ChevronLeft className="group-hover:-translate-x-1 transition-transform" />
           </button>
           <div>
-            <div className="flex items-center space-x-2">
-              <span className="text-xs font-mono px-2 py-0.5 bg-accent/20 text-accent rounded">LVL {level.levelNumber}</span>
-              <h2 className="text-xl font-bold">{level.title}</h2>
+            <div className="flex items-center space-x-3 mb-1">
+              <span className="text-[10px] uppercase tracking-[0.2em] px-2 py-1 bg-accent/20 text-accent rounded-sm font-bold">LVL {level.levelNumber}</span>
+              <h2 className="text-2xl font-display font-bold tracking-tight">{level.title}</h2>
             </div>
-            <p className="text-sm text-white/50">{level.goal}</p>
+            <p className="text-sm font-sans text-white/60 font-light">{level.goal}</p>
           </div>
         </div>
         <div className="text-right hidden md:block">
-          <p className="text-xs text-white/40">Target Model</p>
-          <p className="text-sm font-mono">{selectedModel}</p>
+          <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Target Model</p>
+          <p className="text-xs font-mono text-white/70 bg-black/50 px-3 py-1.5 rounded-full border border-white/10">{selectedModel}</p>
         </div>
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto p-4 md:p-6 glass-panel rounded-b-2xl mb-4 space-y-6 scrollbar-thin">
+      <div className="flex-1 overflow-y-auto p-6 md:p-8 glass-panel rounded-b-3xl mb-6 space-y-8 scrollbar-thin shadow-2xl relative z-0">
         {messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full text-center text-white/30 space-y-4">
-            <ShieldAlert size={48} className="opacity-20" />
-            <p className="max-w-md">{level.description}</p>
+          <div className="flex flex-col items-center justify-center h-full text-center text-white/30 space-y-6">
+            <div className="p-6 rounded-full bg-white/5 border border-white/10">
+              <ShieldAlert size={40} className="text-white/20" />
+            </div>
+            <p className="max-w-md font-light leading-relaxed text-white/40">{level.description}</p>
           </div>
         )}
 
         {messages.map((msg, idx) => (
           <motion.div 
             key={idx}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
-            <div className={`max-w-[85%] md:max-w-[70%] p-4 rounded-2xl ${
+            <div className={`max-w-[85%] md:max-w-[75%] p-5 rounded-3xl leading-relaxed shadow-lg ${
               msg.role === 'user' 
-                ? 'bg-accent text-white rounded-tr-sm' 
-                : 'bg-white/5 border border-white/10 rounded-tl-sm text-white/90 font-mono text-sm'
+                ? 'bg-gradient-to-br from-accent to-blue-700 text-white rounded-tr-sm' 
+                : 'bg-black/60 backdrop-blur-md border border-white/10 rounded-tl-sm text-white/90 font-mono text-[13px]'
             }`}>
               <span className="whitespace-pre-wrap">{msg.content}</span>
             </div>
@@ -136,7 +138,7 @@ const Challenge = () => {
 
       {/* Inputs and Controls */}
       <div className="flex space-x-4 relative z-20">
-        <div className="flex-1 relative">
+        <div className="flex-1 relative group">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -148,13 +150,13 @@ const Challenge = () => {
             }}
             disabled={isLoading || isWon}
             placeholder={isWon ? "Challenge Completed." : "Inject prompt..."}
-            className="w-full bg-black/50 border border-white/10 rounded-2xl pl-4 pr-12 py-4 text-white focus:outline-none focus:ring-2 focus:ring-accent resize-none glass-panel disabled:opacity-50"
+            className="w-full bg-black/60 backdrop-blur-xl border border-white/10 rounded-3xl pl-6 pr-16 py-5 text-white focus:outline-none focus:ring-2 focus:ring-accent/50 resize-none shadow-2xl disabled:opacity-50 transition-all font-sans"
             rows={1}
           />
           <button
             onClick={handleSend}
             disabled={!input.trim() || isLoading || isWon}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-white/10 text-white rounded-xl hover:bg-accent hover:text-white transition-colors disabled:opacity-30"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-3 bg-white/10 text-white rounded-2xl hover:bg-accent hover:text-white transition-all disabled:opacity-30 hover:scale-105 active:scale-95"
           >
             <Send size={18} />
           </button>
@@ -163,19 +165,19 @@ const Challenge = () => {
         <button
           onClick={() => setHintsUsed(h => Math.min(h + 1, level.hints.length))}
           disabled={hintsUsed >= level.hints.length || isWon}
-          className="px-4 bg-black/50 border border-white/10 rounded-2xl glass-panel hover:bg-white/10 transition-colors flex flex-col items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed"
+          className="px-5 bg-black/60 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 transition-all flex flex-col items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed shadow-2xl hover:border-white/20"
           title="Use Hint"
         >
-          <Lightbulb size={20} className={hintsUsed > 0 ? 'text-yellow-400' : 'text-white/50'} />
-          <span className="text-[10px] mt-1 text-white/50">{hintsUsed}/{level.hints.length}</span>
+          <Lightbulb size={22} className={hintsUsed > 0 ? 'text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]' : 'text-white/50'} />
+          <span className="text-[10px] mt-1 font-mono text-white/50">{hintsUsed}/{level.hints.length}</span>
         </button>
 
         <button
           onClick={handleRestart}
-          className="px-4 bg-black/50 border border-white/10 rounded-2xl glass-panel hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-colors flex items-center justify-center"
+          className="px-6 bg-black/60 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 text-white/70"
           title="Restart Level"
         >
-          <RefreshCw size={20} />
+          <RefreshCw size={22} />
         </button>
       </div>
 
